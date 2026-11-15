@@ -1,4 +1,4 @@
-﻿namespace API.Infrastructure.Common;
+﻿namespace API.Common;
 
 public class PaginationParams
 {

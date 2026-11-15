@@ -1,4 +1,4 @@
-﻿namespace API.Infrastructure.Common;
+﻿namespace API.Common;
 
 using Microsoft.EntityFrameworkCore;
 public class PagedList<T>
