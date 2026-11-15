@@ -13,6 +13,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+app.UseCors("AllowWeb");
 
 app.UseHttpsRedirection();
 
