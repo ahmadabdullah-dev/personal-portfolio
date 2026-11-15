@@ -4,3 +4,4 @@ global using API.Services.Interfaces;
 global using API.Common;
 global using API.Infrastructure;
 global using API;
+global using API.Services;

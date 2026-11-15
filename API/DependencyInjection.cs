@@ -30,6 +30,9 @@ public static class DependencyInjection
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
+        services.AddScoped<ISystemRepository, SystemRepository>();
+        services.AddScoped<ISystemService, SystemService>();
+
         services.AddDataProtection();
 
         return services;
