@@ -41,6 +41,7 @@ public static class DependencyInjection
                           .AllowCredentials();
                 });
         });
+        services.Configure<CloudinaryConfigurations>(configuration.GetSection("CloudinaryConfigurations"));
 
         services.AddScoped<ISystemRepository, SystemRepository>();
         services.AddScoped<ISystemService, SystemService>();
