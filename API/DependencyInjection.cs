@@ -42,9 +42,12 @@ public static class DependencyInjection
                 });
         });
         services.Configure<CloudinaryConfigurations>(configuration.GetSection("CloudinaryConfigurations"));
+        services.Configure<EmailConfiguration>(configuration.GetSection("EmailConfiguration"));
 
         services.AddScoped<ISystemRepository, SystemRepository>();
         services.AddScoped<ISystemService, SystemService>();
+        services.AddScoped<IFileService, FileService>();
+        services.AddScoped<IEmailService, EmailService>();
 
         services.AddDataProtection();
 
