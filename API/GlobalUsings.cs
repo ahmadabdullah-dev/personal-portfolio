@@ -7,3 +7,4 @@ global using API;
 global using API.Services;
 global using API.Dtos;
 global using API.Common.Configurations;
+global using API.Entities;

@@ -43,11 +43,15 @@ public static class DependencyInjection
         });
         services.Configure<CloudinaryConfigurations>(configuration.GetSection("CloudinaryConfigurations"));
         services.Configure<EmailConfiguration>(configuration.GetSection("EmailConfiguration"));
+        services.Configure<ReceiverConfiguration>(configuration.GetSection("ReceiverConfiguration"));
+
 
         services.AddScoped<ISystemRepository, SystemRepository>();
         services.AddScoped<ISystemService, SystemService>();
         services.AddScoped<IFileService, FileService>();
-        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IEmailService, EmailService>();   
+        services.AddScoped<IContactService, ContactService>();
+        services.AddScoped<IContactRepository, ContactRepository>();
 
         services.AddDataProtection();
 
