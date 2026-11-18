@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Alert,
+  Avatar,
   Box,
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   Container,
   Grid,
   Pagination,
+  Stack,
   Typography,
 } from "@mui/material";
 import type { PaginationParams } from "../../lib/types/common";
@@ -27,10 +29,7 @@ export default function Contacts() {
 
   if (isLoading) {
     return (
-      <Container
-        maxWidth="lg"
-        sx={{ py: 8, display: "flex", justifyContent: "center" }}
-      >
+      <Container sx={{ py: 8, display: "flex", justifyContent: "center" }}>
         <CircularProgress />
       </Container>
     );
@@ -48,13 +47,13 @@ export default function Contacts() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography variant="h1" sx={{ mb: 4 }}>
+      <Typography variant="h3" sx={{ mb: 4, fontWeight: 700 }}>
         Messages
       </Typography>
 
       {list.items.length === 0 ? (
         <Alert severity="info" variant="outlined">
-          No messages found.
+          No messages yet.
         </Alert>
       ) : (
         <Grid container spacing={3}>
@@ -64,29 +63,35 @@ export default function Contacts() {
               size={{ xs: 12, sm: 6, md: 4 }}
             >
               <Card
+                variant="outlined"
                 sx={{
                   height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
+                  transition: "box-shadow .15s, border-color .15s",
+                  "&:hover": { boxShadow: 3, borderColor: "primary.main" },
                 }}
               >
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography
-                    variant="h6"
-                    sx={{ textTransform: "uppercase", mb: 1 }}
-                  >
-                    {c.fullName}
-                  </Typography>
+                <CardContent>
+                  <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+                    <Avatar sx={{ bgcolor: "primary.main" }}>
+                      {c.fullName.charAt(0).toUpperCase()}
+                    </Avatar>
+                    <Box sx={{ minWidth: 0 }}>
+                      <Typography noWrap sx={{ fontWeight: 600 }}>
+                        {c.fullName}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" noWrap>
+                        {c.email}
+                      </Typography>
+                    </Box>
+                  </Stack>
+
                   <Typography
                     variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
+                    sx={{ mb: 2, whiteSpace: "pre-line" }}
                   >
-                    {c.email}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>
                     {c.message}
                   </Typography>
+
                   <Typography variant="caption" color="text.secondary">
                     {new Date(c.sentAt).toLocaleString()}
                   </Typography>
