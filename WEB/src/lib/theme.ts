@@ -1,25 +1,31 @@
 import { createTheme } from "@mui/material/styles";
 
+// Brand palette
+const OBSIDIAN_BLACK = "#080808"; // Main background
+const CHROME_SILVER = "#CDCBCA"; // Portrait, typography, and details
+const LASER_CRIMSON = "#D41514"; // Accent and highlights
+
 export const theme = () =>
   createTheme({
     palette: {
       mode: "dark",
       background: {
-        default: "#000000",
-        paper: "#0d0d0d",
+        default: OBSIDIAN_BLACK,
+        paper: "#121212",
       },
       primary: {
-        main: "#ffffff",
-        contrastText: "#000000",
+        main: CHROME_SILVER,
+        contrastText: OBSIDIAN_BLACK,
       },
       secondary: {
-        main: "#005288",
+        main: LASER_CRIMSON,
+        contrastText: "#ffffff",
       },
       text: {
-        primary: "#ffffff",
-        secondary: "#777777",
+        primary: CHROME_SILVER,
+        secondary: "#8a8887",
       },
-      divider: "rgba(255,255,255,0.10)",
+      divider: "rgba(205,203,202,0.12)",
       error: { main: "#ff3b30" },
       success: { main: "#00d26a" },
     },
@@ -47,7 +53,7 @@ export const theme = () =>
       },
       MuiCard: {
         styleOverrides: {
-          root: { border: "1px solid rgba(255,255,255,0.10)", borderRadius: 0 },
+          root: { border: "1px solid rgba(205,203,202,0.12)", borderRadius: 0 },
         },
       },
       MuiChip: {
