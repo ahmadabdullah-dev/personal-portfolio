@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useState, Fragment } from "react";
 import { useNavigate } from "react-router";
 import theme from "../../lib/theme";
+import Footer from "./Footer";
 
 export interface DrawerNavItem {
   label: string;
@@ -148,6 +149,7 @@ export default function TemporaryDrawer({ items }: DrawerProps) {
             ))}
           </List>
         </Box>
+        <Footer/>
       </Drawer>
     </>
   );
