@@ -44,7 +44,7 @@ public static class DependencyInjection
         services.Configure<CloudinaryConfigurations>(configuration.GetSection("CloudinaryConfigurations"));
         services.Configure<EmailConfiguration>(configuration.GetSection("EmailConfiguration"));
         services.Configure<ReceiverConfiguration>(configuration.GetSection("ReceiverConfiguration"));
-
+        services.Configure<AdminConfiguration>(configuration.GetSection("Seed:Admin"));
 
         services.AddScoped<ISystemRepository, SystemRepository>();
         services.AddScoped<ISystemService, SystemService>();
@@ -52,6 +52,7 @@ public static class DependencyInjection
         services.AddScoped<IEmailService, EmailService>();   
         services.AddScoped<IContactService, ContactService>();
         services.AddScoped<IContactRepository, ContactRepository>();
+        services.AddScoped<IAuthService, AuthService>();
 
         services.AddDataProtection();
 
