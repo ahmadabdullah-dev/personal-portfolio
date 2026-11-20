@@ -1,6 +1,7 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import Contacts from "../contact/Contacts";
 import IsDbConnected from "../system/IsDbConnected";
+import LogoutButton from "../auth/Logout";
 
 export default function AdminDashboard() {
   return (
@@ -19,6 +20,7 @@ export default function AdminDashboard() {
             Admin dashboard
           </Typography>
           <IsDbConnected />
+          <LogoutButton/>
         </Stack>
       </Container>
 

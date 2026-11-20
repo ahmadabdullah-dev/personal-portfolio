@@ -5,6 +5,7 @@ import ErrorPage from "../../features/errors/ErrorPage";
 import AdminDashboard from "../../features/admin/AdminDashboard";
 import LandingPage from "../components/LandingPage";
 import CreateContact from "../../features/contact/CreateContact";
+import RequestLoginForm from "../../features/auth/RequestLoginForm";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +15,7 @@ export const routes = createBrowserRouter([
       { index: true, element: <LandingPage /> },
       { path: "/admin", element: <AdminDashboard /> },
       { path: "/contact", element: <CreateContact /> },
+      { path: "/login", element: <RequestLoginForm /> },
 
       { path: "*", element: <NotFound /> },
     ],
