@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace API;
@@ -29,7 +30,19 @@ public static class DependencyInjection
         })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
-        
+
+        services.AddRateLimiter(options =>
+        {
+            options.AddFixedWindowLimiter("authRateLimiter", opt =>
+            {
+                opt.Window = TimeSpan.FromSeconds(10);
+                opt.PermitLimit = 5;
+                opt.QueueLimit = 0;
+            });
+
+            options.RejectionStatusCode = 429;
+        });
+
         services.AddCors(options =>
         {
             options.AddPolicy("AllowWeb",

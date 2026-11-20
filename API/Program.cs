@@ -16,6 +16,8 @@ if (app.Environment.IsDevelopment())
 
 await DataSeeder.SeedAsync(app.Services);
 
+app.UseRateLimiter();   
+
 app.UseCors("AllowWeb");
 
 app.UseHttpsRedirection();
