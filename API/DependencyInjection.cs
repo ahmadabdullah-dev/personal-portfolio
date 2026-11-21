@@ -68,6 +68,9 @@ public static class DependencyInjection
         services.AddScoped<IContactRepository, ContactRepository>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ISkillsRepository, SkillsRepository>();
+        services.AddScoped<ISkillsService, SkillsService>();
+
 
         services.AddDataProtection();
 
