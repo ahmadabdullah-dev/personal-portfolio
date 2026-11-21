@@ -26,7 +26,7 @@ export const useDeleteSkill = () => {
   });
 };
 
-export const useCreateSkill = () => {
+export const useAddSkill = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

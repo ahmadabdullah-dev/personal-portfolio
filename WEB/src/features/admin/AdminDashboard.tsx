@@ -2,6 +2,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import Contacts from "../contact/Contacts";
 import IsDbConnected from "../system/IsDbConnected";
 import LogoutButton from "../auth/Logout";
+import AddSkill from "../skills/AddSkills";
 
 export default function AdminDashboard() {
   return (
@@ -25,6 +26,7 @@ export default function AdminDashboard() {
       </Container>
 
       <Contacts />
+      <AddSkill/>
     </Box>
   );
 }
