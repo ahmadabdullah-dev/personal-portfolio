@@ -54,6 +54,7 @@ public static class DependencyInjection
                           .AllowCredentials();
                 });
         });
+
         services.Configure<CloudinaryConfigurations>(configuration.GetSection("CloudinaryConfigurations"));
         services.Configure<EmailConfiguration>(configuration.GetSection("EmailConfiguration"));
         services.Configure<ReceiverConfiguration>(configuration.GetSection("ReceiverConfiguration"));
@@ -66,6 +67,7 @@ public static class DependencyInjection
         services.AddScoped<IContactService, ContactService>();
         services.AddScoped<IContactRepository, ContactRepository>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.AddDataProtection();
 
