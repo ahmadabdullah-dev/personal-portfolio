@@ -42,7 +42,7 @@ public class SkillsService : ISkillsService
     {
         var skills = await _skillsRepository.GetAllSkillsAsync(ct);
 
-        var dtos = skills.Select(s => new SkillDto(s.Category, s.Name)).ToList();
+        var dtos = skills.Select(s => new SkillDto(s.Category, s.Name)).OrderBy(s => s.Category).ThenBy(s => s.Name).ToList();
 
         return Result<List<SkillDto>>.Success(dtos);
     }
