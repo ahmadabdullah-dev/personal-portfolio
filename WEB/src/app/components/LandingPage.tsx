@@ -2,6 +2,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { Link } from "react-router";
 import SoftwareSection from "../../features/marketing/SoftwareSection";
 import LocalizationSection from "../../features/marketing/LocalizationSection";
+import AllSkills from "../../features/skills/AllSkills";
 
 const LOGO_SRC = "/ahmad_abdullah_personal_brand_favicon-removebg-preview.png";
 
@@ -92,6 +93,7 @@ export default function LandingPage() {
 
       <SoftwareSection />
       <LocalizationSection />
+      <AllSkills/>
     </Container>
   );
 }
