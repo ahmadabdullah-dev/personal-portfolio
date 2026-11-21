@@ -7,6 +7,7 @@ namespace API.Infrastructure;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<IdentityUser>(options)
 {
     public DbSet<Contact> Contacts => Set<Contact>();
+    public DbSet<Skill> Skills => Set<Skill>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
