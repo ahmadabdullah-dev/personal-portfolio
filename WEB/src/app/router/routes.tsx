@@ -6,6 +6,7 @@ import AdminDashboard from "../../features/admin/AdminDashboard";
 import LandingPage from "../components/LandingPage";
 import CreateContact from "../../features/contact/CreateContact";
 import RequestLoginForm from "../../features/auth/RequestLoginForm";
+import RequireAuth from "./RequireAuth";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -13,10 +14,14 @@ export const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <LandingPage /> },
-      { path: "/admin", element: <AdminDashboard /> },
       { path: "/contact", element: <CreateContact /> },
+      {
+        element: <RequireAuth />,
+        children: [
+              { path: "/admin", element: <AdminDashboard /> },
+        ],
+      },
       { path: "/login", element: <RequestLoginForm /> },
-
       { path: "*", element: <NotFound /> },
     ],
   },
