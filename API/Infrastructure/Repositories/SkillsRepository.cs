@@ -10,17 +10,10 @@ public class SkillsRepository : BaseRepository<Skill>, ISkillsRepository
     {
         return await DbSet.FirstOrDefaultAsync(s => s.Name == name && s.Category == category, ct);
     }
-    public async Task<string> DeleteSkillByNameAndCategory(string name, string category, CancellationToken ct = default)
-    {
-        var skill = await GetSkillByNameAndCategoryAsync(name, category, ct);
-       
-        if (skill == null)
-            return "Skill not found.";
-        
+    public async Task DeleteSkillByNameAndCategoryAsync(Skill skill, CancellationToken ct = default)
+    {   
         DbSet.Remove(skill);
         await Db.SaveChangesAsync(ct);
-
-        return "Skill deleted successfully.";
     }
     public async Task<List<Skill>> GetAllSkillsAsync(CancellationToken ct = default)
     {

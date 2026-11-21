@@ -29,9 +29,14 @@ public class SkillsService : ISkillsService
     }
     public async Task<Result<string>> DeleteSkillAsync(SkillDto dto, CancellationToken ct)
     {
-        var isDeleted = await _skillsRepository.DeleteSkillByNameAndCategory(dto.Name, dto.Category, ct);
+        var skill = await _skillsRepository.GetSkillByNameAndCategoryAsync(dto.Name, dto.Category, ct);
 
-        return Result<string>.Success(isDeleted);
+        if (skill == null)
+            return Result<string>.Failure("Skill not found.", 404);
+
+        await _skillsRepository.DeleteSkillByNameAndCategoryAsync(skill, ct);
+
+        return Result<string>.Success("Skill deleted successfully.");
     }
     public async Task<Result<List<SkillDto>>> GetAllSkillsAsync(CancellationToken ct)
     {
