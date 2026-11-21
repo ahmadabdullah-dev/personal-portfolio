@@ -3,6 +3,7 @@ import Contacts from "../contact/Contacts";
 import IsDbConnected from "../system/IsDbConnected";
 import LogoutButton from "../auth/Logout";
 import AddSkill from "../skills/AddSkills";
+import DeleteSkill from "../skills/DeleteSkill";
 
 export default function AdminDashboard() {
   return (
@@ -27,6 +28,7 @@ export default function AdminDashboard() {
 
       <Contacts />
       <AddSkill/>
+      <DeleteSkill/>
     </Box>
   );
 }
