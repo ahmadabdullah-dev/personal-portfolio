@@ -12,7 +12,7 @@ public class BlogsController : BaseApiController
     }
     //[Authorize]
     [HttpPost("add")]
-    public async Task<IActionResult> AddBlog(AddBlogDto dto, CancellationToken ct)
+    public async Task<IActionResult> AddBlog([FromForm] AddBlogDto dto, CancellationToken ct)
     {
         var result = await _blogsService.AddBlogAsync(dto, ct);
         return HandleResult(result);
