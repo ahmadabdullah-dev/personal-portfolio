@@ -70,6 +70,8 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ISkillsRepository, SkillsRepository>();
         services.AddScoped<ISkillsService, SkillsService>();
+        services.AddScoped<IBlogsRepository, BlogsRepository>();
+        services.AddScoped<IBlogsService, BlogsService>();
 
 
         services.AddDataProtection();
