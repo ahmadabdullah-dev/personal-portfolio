@@ -3,8 +3,61 @@
 public class BlogsService : IBlogsService
 {
     private readonly IBlogsRepository _blogsRepository;
-    public BlogsService(IBlogsRepository blogsRepository)
+    private readonly ILogger<BlogsService> _logger;
+
+    private readonly IFileService _fileService;
+    public BlogsService(IBlogsRepository blogsRepository, 
+        ILogger<BlogsService> logger, 
+        IFileService fileService)
     {
         _blogsRepository = blogsRepository;
+        _logger = logger;
+        _fileService = fileService;
+    }
+    public async Task<Result<string>> AddBlogAsync(AddBlogDto dto, CancellationToken ct)
+    {
+        string? imageUrl = null;
+        string? imagePublicId = null;
+
+        if (dto.Image is not null)
+        {
+            var imageResult = await _fileService.UploadImage(dto.Image);
+
+            if (!imageResult.IsSuccess)
+                return Result<string>.Failure(imageResult.Error!, 400);
+
+            imageUrl = imageResult.Value!.Url;
+            imagePublicId = imageResult.Value.PublicId;
+        }
+
+        var newBlog = new Blog
+        {
+            ImageUrl = imageUrl,
+            ImagePublicId = imagePublicId,
+            Slug = dto.Slug,
+            Title = dto.Title,
+            Content = dto.Content,
+            Tags = dto.Tags
+        };
+        try
+        {
+            await _blogsRepository.AddAsync(newBlog, ct);
+            await _blogsRepository.SaveChangesAsync(ct);
+
+        }
+        catch (Exception ex)
+        {
+            if (imagePublicId is not null)
+            {
+                var cleanup = await _fileService.DeleteFile(imagePublicId);
+               
+                if (!cleanup.IsSuccess)
+                    _logger.LogWarning($"Orphaned Cloudinary image {imagePublicId}");
+            }
+
+            _logger.LogError(ex, "An error occurred while adding the blog.");
+            return Result<string>.Failure("An error occurred while adding the blog.",400);
+        }
+        return Result<string>.Success("Blog added successfully.");
     }
 }
