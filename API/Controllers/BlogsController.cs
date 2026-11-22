@@ -12,9 +12,15 @@ public class BlogsController : BaseApiController
     }
     //[Authorize]
     [HttpPost("add")]
-    public async Task<ActionResult<Result<string>>> AddBlog(AddBlogDto dto, CancellationToken ct)
+    public async Task<IActionResult> AddBlog(AddBlogDto dto, CancellationToken ct)
     {
         var result = await _blogsService.AddBlogAsync(dto, ct);
+        return HandleResult(result);
+    }
+    [HttpGet("get-by-slug/{slug}")]
+    public async Task<IActionResult> GetBlogBySlug(string slug, CancellationToken ct)
+    {
+        var result = await _blogsService.GetBlogBySlugAsync(slug, ct);
         return HandleResult(result);
     }
 }

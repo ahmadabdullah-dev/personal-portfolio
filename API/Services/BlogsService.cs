@@ -60,4 +60,22 @@ public class BlogsService : IBlogsService
         }
         return Result<string>.Success("Blog added successfully.");
     }
+
+    public async Task<Result<BlogDto>> GetBlogBySlugAsync(string slug, CancellationToken ct)
+    {
+        var blog = await _blogsRepository.GetBySlugAsync(slug, ct);
+        
+        if (blog is null)
+            return Result<BlogDto>.Failure("Blog not found", 404);
+
+        var blogDto = new BlogDto
+        {
+            ImageUrl = blog.ImageUrl,
+            Slug = blog.Slug,
+            Title = blog.Title,
+            Content = blog.Content,
+            Tags = blog.Tags
+        };
+        return Result<BlogDto>.Success(blogDto);
+    }
 }
