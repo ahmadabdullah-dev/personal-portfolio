@@ -4,6 +4,7 @@ import IsDbConnected from "../system/IsDbConnected";
 import LogoutButton from "../auth/Logout";
 import AddSkill from "../skills/AddSkills";
 import DeleteSkill from "../skills/DeleteSkill";
+import AddBlogForm from "../blogs/AddBlogForm";
 
 export default function AdminDashboard() {
   return (
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
       <Contacts />
       <AddSkill/>
       <DeleteSkill/>
+      <AddBlogForm/>
     </Box>
   );
 }
