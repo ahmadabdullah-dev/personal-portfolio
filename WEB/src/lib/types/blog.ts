@@ -5,3 +5,12 @@ export interface AddBlogDto {
   content: string;
   tags?: string[] | null;
 }
+export interface BlogDto {
+  id: string;
+  imageUrl?: string | null;
+  slug: string;
+  title: string;
+  content: string;
+  tags?: string[] | null;
+  createdAt: string; 
+}

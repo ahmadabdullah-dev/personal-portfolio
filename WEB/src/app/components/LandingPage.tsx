@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import SoftwareSection from "../../features/marketing/SoftwareSection";
 import LocalizationSection from "../../features/marketing/LocalizationSection";
 import AllSkills from "../../features/skills/AllSkills";
+import AllBlogsBanner from "../../features/blogs/AllBlogsBanner";
 
 const LOGO_SRC = "/ahmad_abdullah_personal_brand_favicon-removebg-preview.png";
 
@@ -94,6 +95,7 @@ export default function LandingPage() {
       <SoftwareSection />
       <LocalizationSection />
       <AllSkills/>
+      <AllBlogsBanner/>
     </Container>
   );
 }

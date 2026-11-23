@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
-import type { AddBlogDto } from "../types/blog";
+import type { AddBlogDto, BlogDto } from "../types/blog";
+import type { PaginatedList, PaginationParams } from "../types/common";
 
 export const useAddBlog = () => {
   const queryClient = useQueryClient();
@@ -17,3 +18,17 @@ export const useAddBlog = () => {
     },
   });
 };
+export function useGetAllBlogs(pagination: PaginationParams) {
+  return useQuery({
+    queryKey: ["blogs", pagination],
+    queryFn: async () => {
+      const response = await agent.get<PaginatedList<BlogDto>>(
+        "Blogs/get-all",
+        { params: pagination },
+        
+      );
+      return response.data;
+    },
+    retry: false,
+  });
+}
