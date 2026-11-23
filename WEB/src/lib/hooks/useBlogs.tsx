@@ -8,9 +8,9 @@ export const useAddBlog = () => {
 
   return useMutation({
     mutationFn: async (creds: AddBlogDto) => {
-            const response = await agent.post("/Blogs/add", creds, {
-              headers: { "Content-Type": "multipart/form-data" },
-            });
+      const response = await agent.post("/Blogs/add", creds, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       return response.data;
     },
     onSuccess: () => {
@@ -25,10 +25,21 @@ export function useGetAllBlogs(pagination: PaginationParams) {
       const response = await agent.get<PaginatedList<BlogDto>>(
         "Blogs/get-all",
         { params: pagination },
-        
       );
       return response.data;
     },
+    retry: false,
+  });
+}
+export function useGetBlogBySlug(slug: string) {
+  return useQuery({
+    queryKey: ["blog", slug],
+    queryFn: async () =>
+      agent
+        .get<BlogDto>(`/Blogs/get-by-slug/${encodeURIComponent(slug)}`)
+        .then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
+    enabled: !!slug,
     retry: false,
   });
 }
