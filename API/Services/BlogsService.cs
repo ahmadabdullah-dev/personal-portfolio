@@ -78,4 +78,29 @@ public class BlogsService : IBlogsService
         };
         return Result<BlogDto>.Success(blogDto);
     }
+    public async Task<Result<PagedList<BlogDto>>> GetAllBlogsAsync(PaginationParams p,CancellationToken ct)
+    {
+        var blogs = await _blogsRepository.GetAllAsync(p, ct);
+
+        var dtos = new PagedList<BlogDto>
+        {
+            Items = blogs.Items.Select(blog => new BlogDto
+            {
+                Id = blog.Id,
+                Content = blog.Content,
+                ImageUrl = blog.ImageUrl,
+                Slug = blog.Slug,
+                Title = blog.Title,
+                Tags = blog.Tags,
+                CreatedAt = blog.CreatedAt
+                
+            }).ToList(),
+
+            CurrentPage = blogs.CurrentPage,
+            TotalCount = blogs.TotalCount,
+            TotalPages = blogs.TotalPages
+        };
+
+        return Result<PagedList<BlogDto>>.Success(dtos);
+    }
 }

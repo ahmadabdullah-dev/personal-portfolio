@@ -10,4 +10,20 @@ public class BlogsRepository : BaseRepository<Blog>, IBlogsRepository
     {
         return await DbSet.FirstOrDefaultAsync(b => b.Slug == slug, ct);
     }
+    //override the GetAllAsync method to include only specific fields for the Blog entity
+    public override async Task<PagedList<Blog>> GetAllAsync(PaginationParams p, CancellationToken ct = default)
+    {
+        var query = DbSet.AsNoTracking()
+            .Select(b => new Blog
+            {
+                Id = b.Id,
+                Title = b.Title,
+                CreatedAt = b.CreatedAt,
+                ImageUrl = b.ImageUrl,
+                Slug = b.Slug,
+                Tags = b.Tags,
+            });
+
+        return await PagedList<Blog>.CreateAsync(query, p.Page, p.PageSize, ct);
+    }
 }

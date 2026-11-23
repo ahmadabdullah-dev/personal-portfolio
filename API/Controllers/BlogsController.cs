@@ -23,4 +23,10 @@ public class BlogsController : BaseApiController
         var result = await _blogsService.GetBlogBySlugAsync(slug, ct);
         return HandleResult(result);
     }
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetAllBlogs([FromQuery] PaginationParams p, CancellationToken ct)
+    {
+        var result = await _blogsService.GetAllBlogsAsync(p, ct);
+        return HandleResult(result);
+    }
 }
