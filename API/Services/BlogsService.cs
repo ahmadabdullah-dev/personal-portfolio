@@ -74,7 +74,8 @@ public class BlogsService : IBlogsService
             Slug = blog.Slug,
             Title = blog.Title,
             Content = blog.Content,
-            Tags = blog.Tags
+            Tags = blog.Tags,
+            CreatedAt = blog.CreatedAt
         };
         return Result<BlogDto>.Success(blogDto);
     }
