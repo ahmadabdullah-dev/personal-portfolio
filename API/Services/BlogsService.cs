@@ -103,9 +103,9 @@ public class BlogsService : IBlogsService
 
         return Result<PagedList<BlogDto>>.Success(dtos);
     }
-    public async Task<Result<string>> DeleteBlogAsync(string slug, CancellationToken ct)
+    public async Task<Result<string>> DeleteBlogAsync(string id, CancellationToken ct)
     {
-        var blog = await _blogsRepository.GetBySlugAsync(slug, ct);
+        var blog = await _blogsRepository.GetByIdAsync(id, ct);
        
         if (blog is null)
             return Result<string>.Failure("Blog not found", 404);

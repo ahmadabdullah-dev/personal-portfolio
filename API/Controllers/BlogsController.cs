@@ -30,10 +30,10 @@ public class BlogsController : BaseApiController
         return HandleResult(result);
     }
     //[Authorize]
-    [HttpDelete("delete/{slug}")]
-    public async Task<IActionResult> DeleteBlog(string slug, CancellationToken ct)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteBlog(string id, CancellationToken ct)
     {
-        var result = await _blogsService.DeleteBlogAsync(slug, ct);
+        var result = await _blogsService.DeleteBlogAsync(id, ct);
         return HandleResult(result);
     }
     //[Authorize]
