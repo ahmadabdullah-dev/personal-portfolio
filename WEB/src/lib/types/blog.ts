@@ -12,5 +12,13 @@ export interface BlogDto {
   title: string;
   content: string;
   tags?: string[] | null;
-  createdAt: string; 
+  createdAt: string;
+}
+export interface UpdateBlogDto {
+  id: string;
+  image?: File;
+  slug?: string;
+  title?: string;
+  content?: string;
+  tags?: string[];
 }

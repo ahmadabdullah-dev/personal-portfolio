@@ -10,6 +10,7 @@ import RequireAuth from "./RequireAuth";
 import BlogDetails from "../../features/blogs/BlogDetails";
 import AllBlogs from "../../features/blogs/AllBlogs";
 import RequireAdminRole from "./RequireAdminRole";
+import UpdateBlog from "../../features/blogs/UpdateBlog";
 
 export const routes = createBrowserRouter([
   {
@@ -27,7 +28,10 @@ export const routes = createBrowserRouter([
         children: [
           {
             element: <RequireAdminRole />,
-            children: [{ path: "admin", element: <AdminDashboard /> }],
+            children: [
+              { path: "admin", element: <AdminDashboard /> },
+              { path: "blog/update/:slug", element: <UpdateBlog /> },
+            ],
           },
         ],
       },

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
-import type { AddBlogDto, BlogDto } from "../types/blog";
+import type { AddBlogDto, BlogDto, UpdateBlogDto } from "../types/blog";
 import type { PaginatedList, PaginationParams } from "../types/common";
 
 export const useAddBlog = () => {
@@ -43,3 +43,19 @@ export function useGetBlogBySlug(slug: string) {
     retry: false,
   });
 }
+export const useUpdateBlog = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (dto: UpdateBlogDto) => {
+      const response = await agent.put<string>("/Blogs/update", dto, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return response.data;
+    },
+    onSuccess: (_data, dto) => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      queryClient.invalidateQueries({ queryKey: ["blog", dto.slug] });
+    },
+  });
+};
