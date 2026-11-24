@@ -69,6 +69,7 @@ public class BlogsService : IBlogsService
 
         var blogDto = new BlogDto
         {
+            Id = blog.Id,
             ImageUrl = blog.ImageUrl,
             Slug = blog.Slug,
             Title = blog.Title,
