@@ -128,4 +128,44 @@ public class BlogsService : IBlogsService
         }
         return Result<string>.Success("Blog deleted successfully.");
     }
+    public async Task<Result<string>> UpdateBlogAsync(UpdateBlogDto dto, CancellationToken ct)
+    {
+        var blog = await _blogsRepository.GetByIdAsync(dto.Id, ct);
+       
+        if (blog is null)
+            return Result<string>.Failure("Blog not found", 404);
+        
+        if (dto.Image is not null)
+        {
+            if (blog.ImagePublicId is not null)
+            {
+                var deleteResult = await _fileService.DeleteFile(blog.ImagePublicId);
+                if (!deleteResult.IsSuccess)
+                    _logger.LogWarning($"Failed to delete old image {blog.ImagePublicId} from cloud storage.");
+            }
+           
+            var uploadResult = await _fileService.UploadImage(dto.Image);
+           
+            if (!uploadResult.IsSuccess)
+                return Result<string>.Failure(uploadResult.Error!, 400);
+           
+            blog.ImageUrl = uploadResult.Value!.Url;
+            blog.ImagePublicId = uploadResult.Value.PublicId;
+        }
+        blog.Slug = dto.Slug ?? blog.Slug;
+        blog.Title = dto.Title ?? blog.Title;
+        blog.Content = dto.Content ?? blog.Content;
+        blog.Tags = dto.Tags ?? blog.Tags;
+        try
+        {
+            _blogsRepository.Update(blog);
+            await _blogsRepository.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while updating the blog.");
+            return Result<string>.Failure("An error occurred while updating the blog.", 400);
+        }
+        return Result<string>.Success("Blog updated successfully.");
+    }
 }

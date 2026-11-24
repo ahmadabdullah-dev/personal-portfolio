@@ -36,4 +36,11 @@ public class BlogsController : BaseApiController
         var result = await _blogsService.DeleteBlogAsync(slug, ct);
         return HandleResult(result);
     }
+    //[Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateBlog([FromForm] UpdateBlogDto dto, CancellationToken ct)
+    {
+        var result = await _blogsService.UpdateBlogAsync(dto, ct);
+        return HandleResult(result);
+    }
 }

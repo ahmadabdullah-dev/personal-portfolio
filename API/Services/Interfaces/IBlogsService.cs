@@ -6,6 +6,7 @@ public interface IBlogsService
     Task<Result<BlogDto>> GetBlogBySlugAsync(string slug, CancellationToken ct);
     Task<Result<PagedList<BlogDto>>> GetAllBlogsAsync(PaginationParams p, CancellationToken ct);
     Task<Result<string>> DeleteBlogAsync(string slug, CancellationToken ct);
+    Task<Result<string>> UpdateBlogAsync(UpdateBlogDto blog, CancellationToken ct);
 
 
 }
