@@ -8,6 +8,7 @@ import CreateContact from "../../features/contact/CreateContact";
 import RequestLoginForm from "../../features/auth/RequestLoginForm";
 import RequireAuth from "./RequireAuth";
 import BlogDetails from "../../features/blogs/BlogDetails";
+import AllBlogs from "../../features/blogs/AllBlogs";
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -20,6 +21,7 @@ export const routes = createBrowserRouter([
         element: <RequireAuth />,
         children: [{ path: "/admin", element: <AdminDashboard /> }],
       },
+      { path: "/blogs", element: <AllBlogs /> },
       { path: "/login", element: <RequestLoginForm /> },
       { path: "*", element: <NotFound /> },
       { path: "blog/:slug", element: <BlogDetails /> },

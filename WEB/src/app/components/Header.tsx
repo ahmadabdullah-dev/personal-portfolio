@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import AppLogoWithName from "./AppLogoWithName";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
+  { label: "Blogs", href: "/blogs" },
   { label: "Contact", href: "/contact" },
 ];
 
