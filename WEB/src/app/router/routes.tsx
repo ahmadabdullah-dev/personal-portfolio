@@ -9,6 +9,8 @@ import RequestLoginForm from "../../features/auth/RequestLoginForm";
 import RequireAuth from "./RequireAuth";
 import BlogDetails from "../../features/blogs/BlogDetails";
 import AllBlogs from "../../features/blogs/AllBlogs";
+import RequireAdminRole from "./RequireAdminRole";
+
 export const routes = createBrowserRouter([
   {
     path: "/",
@@ -16,15 +18,20 @@ export const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <LandingPage /> },
-      { path: "/contact", element: <CreateContact /> },
+      { path: "contact", element: <CreateContact /> },
+      { path: "blogs", element: <AllBlogs /> },
+      { path: "blog/:slug", element: <BlogDetails /> },
+      { path: "login", element: <RequestLoginForm /> },
       {
         element: <RequireAuth />,
-        children: [{ path: "/admin", element: <AdminDashboard /> }],
+        children: [
+          {
+            element: <RequireAdminRole />,
+            children: [{ path: "admin", element: <AdminDashboard /> }],
+          },
+        ],
       },
-      { path: "/blogs", element: <AllBlogs /> },
-      { path: "/login", element: <RequestLoginForm /> },
       { path: "*", element: <NotFound /> },
-      { path: "blog/:slug", element: <BlogDetails /> },
     ],
   },
 ]);
