@@ -1,5 +1,6 @@
 ﻿namespace API.Dtos;
 
 public record UserDTO(
-    string email
+    string email,
+    string role
     );
