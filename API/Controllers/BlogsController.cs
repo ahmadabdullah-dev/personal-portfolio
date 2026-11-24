@@ -29,4 +29,11 @@ public class BlogsController : BaseApiController
         var result = await _blogsService.GetAllBlogsAsync(p, ct);
         return HandleResult(result);
     }
+    //[Authorize]
+    [HttpDelete("delete/{slug}")]
+    public async Task<IActionResult> DeleteBlog(string slug, CancellationToken ct)
+    {
+        var result = await _blogsService.DeleteBlogAsync(slug, ct);
+        return HandleResult(result);
+    }
 }

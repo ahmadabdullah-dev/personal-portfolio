@@ -60,7 +60,6 @@ public class BlogsService : IBlogsService
         }
         return Result<string>.Success("Blog added successfully.");
     }
-
     public async Task<Result<BlogDto>> GetBlogBySlugAsync(string slug, CancellationToken ct)
     {
         var blog = await _blogsRepository.GetBySlugAsync(slug, ct);
@@ -103,5 +102,30 @@ public class BlogsService : IBlogsService
         };
 
         return Result<PagedList<BlogDto>>.Success(dtos);
+    }
+    public async Task<Result<string>> DeleteBlogAsync(string slug, CancellationToken ct)
+    {
+        var blog = await _blogsRepository.GetBySlugAsync(slug, ct);
+       
+        if (blog is null)
+            return Result<string>.Failure("Blog not found", 404);
+      
+        try
+        {
+            if (blog.ImagePublicId is not null)
+            {
+                var deleteResult = await _fileService.DeleteFile(blog.ImagePublicId);
+                if (!deleteResult.IsSuccess)
+                    _logger.LogWarning($"Failed to delete image {blog.ImagePublicId} from cloud storage.");
+            }
+            _blogsRepository.Remove(blog);
+            await _blogsRepository.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while deleting the blog.");
+            return Result<string>.Failure("An error occurred while deleting the blog.", 400);
+        }
+        return Result<string>.Success("Blog deleted successfully.");
     }
 }
