@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
 import type { AddBlogDto, BlogDto, UpdateBlogDto } from "../types/blog";
 import type { PaginatedList, PaginationParams } from "../types/common";
+import { useNavigate } from "react-router";
 
 export const useAddBlog = () => {
   const queryClient = useQueryClient();
@@ -56,6 +57,21 @@ export const useUpdateBlog = () => {
     onSuccess: (_data, dto) => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
       queryClient.invalidateQueries({ queryKey: ["blog", dto.slug] });
+    },
+  });
+};
+export const useDeleteBlog = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const response = await agent.delete<string>(`/Blogs/delete/${id}`);
+      return response.data;
+    },
+    onSuccess: (_data) => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      navigate("/");
     },
   });
 };

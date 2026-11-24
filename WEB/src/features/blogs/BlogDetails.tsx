@@ -13,6 +13,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useGetBlogBySlug } from "../../lib/hooks/useBlogs";
 import { formatDate } from "../../lib/common";
 import { useCurrentUser } from "../../lib/hooks/useUser";
+import DeleteBlog from "./DeleteBlog";
 const fade = "linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.6) 55%, rgba(8,8,8,0.25) 100%)";
 
 export default function BlogDetails() {
@@ -109,7 +110,7 @@ const currentUser = useCurrentUser();
             Update blog
           </Button>
 
-          {/* <DeleteBlog id={blog.id} /> */}
+          <DeleteBlog id={blog.id} />
         </Box>
       )}
       <Box component="header" sx={{ mb: "32px", ...headerSx }}>
