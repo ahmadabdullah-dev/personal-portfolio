@@ -2,7 +2,7 @@
 
 public class TranslationSample : BaseEntity
 {
-    public int TranslationId { get; set; }
+    public required string TranslationId { get; set; }
     public Translation Translation { get; set; } = null!;
 
     public required string Title { get; set; }
