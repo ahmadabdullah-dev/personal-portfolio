@@ -36,4 +36,11 @@ public class TranslationController : BaseApiController
         var result = await _translationService.GetTranslationByIdAsync(id, ct);
         return HandleResult(result);
     }
+    //[Authorize(Roles = "Admin")]
+    [HttpPut("update-translation/{id}")]
+    public async Task<IActionResult> UpdateTranslation([FromForm] UpdateTranslationDto dto, CancellationToken ct)
+    {
+        var result = await _translationService.UpdateTranslationAsync(dto, ct);
+        return HandleResult(result);
+    }
 }

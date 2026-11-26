@@ -6,5 +6,7 @@ public interface ITranslationService
     Task<Result<PagedList<TranslationDto>>> GetTranslationsAsync(PaginationParams paginationParams, CancellationToken ct);
     Task<Result<string>> DeleteTranslationAsync(string id, CancellationToken ct);
     Task<Result<TranslationDto>> GetTranslationByIdAsync(string id, CancellationToken ct);
+    Task<Result<string>> UpdateTranslationAsync(UpdateTranslationDto dto, CancellationToken ct);
+
 
 }

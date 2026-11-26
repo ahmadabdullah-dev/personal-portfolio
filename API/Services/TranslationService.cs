@@ -149,4 +149,55 @@ public class TranslationService : ITranslationService
         };
         return Result<TranslationDto>.Success(dto);
     }
+    public async Task<Result<string>> UpdateTranslationAsync(UpdateTranslationDto dto, CancellationToken ct)
+    {
+        var translation = await _translationRepository.GetByIdAsync(dto.Id, ct);
+
+        if (translation is null)
+            return Result<string>.Failure("Translation not found", 404);
+
+        if (dto.Image is not null)
+        {
+            if (translation.ImagePublicId is not null)
+            {
+                var deleteResult = await _fileService.DeleteFile(translation.ImagePublicId);
+                if (!deleteResult.IsSuccess)
+                    _logger.LogWarning($"Failed to delete old image {translation.ImagePublicId} from cloud storage.");
+            }
+
+            var uploadResult = await _fileService.UploadImage(dto.Image);
+
+            if (!uploadResult.IsSuccess)
+                return Result<string>.Failure(uploadResult.Error!, 400);
+
+            translation.ImageUrl = uploadResult.Value!.Url;
+            translation.ImagePublicId = uploadResult.Value.PublicId;
+        }
+
+        translation.Slug = dto.Slug ?? translation.Slug;
+        translation.Language = dto.Language ?? translation.Language;
+        translation.IsPublished = dto.IsPublished;
+        translation.IsFeatured = dto.IsFeatured ?? translation.IsFeatured;
+        translation.DisplayOrder = dto.DisplayOrder ?? translation.DisplayOrder;
+        translation.LanguageCode = dto.LanguageCode ?? translation.LanguageCode;
+        translation.SourceLanguage = dto.SourceLanguage ?? translation.SourceLanguage;
+        translation.Tagline = dto.Tagline ?? translation.Tagline;
+        translation.Description = dto.Description ?? translation.Description;
+        translation.PricePerWord = dto.PricePerWord ?? translation.PricePerWord;
+        translation.Currency = dto.Currency ?? translation.Currency;
+        translation.PriceNote = dto.PriceNote ?? translation.PriceNote;
+        
+
+        try
+        {
+            _translationRepository.Update(translation);
+            await _translationRepository.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while updating the translation.");
+            return Result<string>.Failure("An error occurred while updating the translation.", 400);
+        }
+        return Result<string>.Success("Translation updated successfully.");
+    }
 }
