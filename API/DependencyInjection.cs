@@ -72,7 +72,8 @@ public static class DependencyInjection
         services.AddScoped<ISkillsService, SkillsService>();
         services.AddScoped<IBlogsRepository, BlogsRepository>();
         services.AddScoped<IBlogsService, BlogsService>();
-
+        services.AddScoped<ITranslationRepository, TranslationRepository>();
+        services.AddScoped<ITranslationService, TranslationService>();  
 
         services.AddDataProtection();
 
