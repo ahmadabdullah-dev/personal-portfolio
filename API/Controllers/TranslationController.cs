@@ -30,4 +30,10 @@ public class TranslationController : BaseApiController
         var result = await _translationService.DeleteTranslationAsync(id, ct);
         return HandleResult(result);
     }
+    [HttpGet("get-translation/{id}")]
+    public async Task<IActionResult> GetTranslationById(string id, CancellationToken ct)
+    {
+        var result = await _translationService.GetTranslationByIdAsync(id, ct);
+        return HandleResult(result);
+    }
 }

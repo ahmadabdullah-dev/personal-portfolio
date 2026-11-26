@@ -123,4 +123,30 @@ public class TranslationService : ITranslationService
         }
         return Result<string>.Success("Translation deleted successfully.");
     }
+    public async Task<Result<TranslationDto>> GetTranslationByIdAsync(string id, CancellationToken ct)
+    {
+        var translation = await _translationRepository.GetByIdAsync(id, ct);
+       
+        if (translation is null)
+            return Result<TranslationDto>.Failure("Translation not found", 404);
+        
+        var dto = new TranslationDto
+        {
+            Id = translation.Id,
+            Language = translation.Language,
+            LanguageCode = translation.LanguageCode,
+            SourceLanguage = translation.SourceLanguage,
+            Slug = translation.Slug,
+            Tagline = translation.Tagline,
+            Description = translation.Description,
+            PricePerWord = translation.PricePerWord,
+            Currency = translation.Currency,
+            PriceNote = translation.PriceNote,
+            IsPublished = translation.IsPublished,
+            IsFeatured = translation.IsFeatured,
+            DisplayOrder = translation.DisplayOrder,
+            ImageUrl = translation.ImageUrl
+        };
+        return Result<TranslationDto>.Success(dto);
+    }
 }
