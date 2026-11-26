@@ -23,4 +23,11 @@ public class TranslationController : BaseApiController
         var result = await _translationService.GetTranslationsAsync(paginationParams, ct);
         return HandleResult(result);
     }
+    //[Authorize(Roles = "Admin")]
+    [HttpDelete("delete-translation/{id}")]
+    public async Task<IActionResult> DeleteTranslation(string id, CancellationToken ct)
+    {
+        var result = await _translationService.DeleteTranslationAsync(id, ct);
+        return HandleResult(result);
+    }
 }

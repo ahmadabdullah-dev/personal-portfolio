@@ -67,7 +67,6 @@ public class TranslationService : ITranslationService
         }
         return Result<string>.Success("Translation added successfully");
     }
-
     public async Task<Result<PagedList<TranslationDto>>> GetTranslationsAsync(PaginationParams paginationParams, CancellationToken ct)
     {
         var translations = await _translationRepository.GetAllAsync(paginationParams,ct);
@@ -98,5 +97,30 @@ public class TranslationService : ITranslationService
         };
 
         return Result<PagedList<TranslationDto>>.Success(dtos);
-    }   
+    }
+    public async Task<Result<string>> DeleteTranslationAsync(string id, CancellationToken ct)
+    {
+        var translation = await _translationRepository.GetByIdAsync(id, ct);
+
+        if (translation is null)
+            return Result<string>.Failure("Translation not found", 404);
+
+        try
+        {
+            if (translation.ImagePublicId is not null)
+            {
+                var deleteResult = await _fileService.DeleteFile(translation.ImagePublicId);
+                if (!deleteResult.IsSuccess)
+                    _logger.LogWarning($"Failed to delete image {translation.ImagePublicId} from cloud storage.");
+            }
+            _translationRepository.Remove(translation);
+            await _translationRepository.SaveChangesAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while deleting the translation.");
+            return Result<string>.Failure("An error occurred while deleting the translation.", 400);
+        }
+        return Result<string>.Success("Translation deleted successfully.");
+    }
 }
