@@ -3,5 +3,6 @@
 public interface ITranslationService
 {
     Task<Result<string>> AddTranslationAsync(AddTranslationDto dto, CancellationToken ct);
+    Task<Result<PagedList<TranslationDto>>> GetTranslationsAsync(PaginationParams paginationParams, CancellationToken ct);
 
 }

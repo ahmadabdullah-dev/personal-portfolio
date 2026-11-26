@@ -1,4 +1,6 @@
-﻿namespace API.Services;
+﻿using static System.Reflection.Metadata.BlobBuilder;
+
+namespace API.Services;
 
 public class TranslationService : ITranslationService
 {
@@ -65,4 +67,36 @@ public class TranslationService : ITranslationService
         }
         return Result<string>.Success("Translation added successfully");
     }
+
+    public async Task<Result<PagedList<TranslationDto>>> GetTranslationsAsync(PaginationParams paginationParams, CancellationToken ct)
+    {
+        var translations = await _translationRepository.GetAllAsync(paginationParams,ct);
+      
+        var dtos = new PagedList<TranslationDto>
+        {
+            Items = translations.Items.Select(t => new TranslationDto
+            {
+                Id = t.Id,
+                Language = t.Language,
+                LanguageCode = t.LanguageCode,
+                SourceLanguage = t.SourceLanguage,
+                Slug = t.Slug,
+                Tagline = t.Tagline,
+                Description = t.Description,
+                PricePerWord = t.PricePerWord,
+                Currency = t.Currency,
+                PriceNote = t.PriceNote,
+                IsPublished = t.IsPublished,
+                IsFeatured = t.IsFeatured,
+                DisplayOrder = t.DisplayOrder,
+                ImageUrl = t.ImageUrl
+            }).ToList(),
+
+            CurrentPage = translations.CurrentPage,
+            TotalCount = translations.TotalCount,
+            TotalPages = translations.TotalPages
+        };
+
+        return Result<PagedList<TranslationDto>>.Success(dtos);
+    }   
 }

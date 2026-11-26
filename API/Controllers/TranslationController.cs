@@ -17,4 +17,10 @@ public class TranslationController : BaseApiController
         var result = await _translationService.AddTranslationAsync(dto, ct);
         return HandleResult(result);
     }
+    [HttpGet("get-translations")]
+    public async Task<IActionResult> GetTranslations([FromQuery] PaginationParams paginationParams, CancellationToken ct)
+    {
+        var result = await _translationService.GetTranslationsAsync(paginationParams, ct);
+        return HandleResult(result);
+    }
 }
