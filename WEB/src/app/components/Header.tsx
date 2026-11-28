@@ -6,6 +6,8 @@ import AppLogoWithName from "./AppLogoWithName";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Blogs", href: "/blogs" },
+  { label: "Translations", href: "/translations" },
+
   { label: "Contact", href: "/contact" },
 ];
 

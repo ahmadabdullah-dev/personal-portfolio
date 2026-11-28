@@ -11,6 +11,7 @@ import BlogDetails from "../../features/blogs/BlogDetails";
 import AllBlogs from "../../features/blogs/AllBlogs";
 import RequireAdminRole from "./RequireAdminRole";
 import UpdateBlog from "../../features/blogs/UpdateBlog";
+import AllTranslations from "../../features/translation/AllTranslations";
 
 export const routes = createBrowserRouter([
   {
@@ -23,6 +24,8 @@ export const routes = createBrowserRouter([
       { path: "blogs", element: <AllBlogs /> },
       { path: "blog/:slug", element: <BlogDetails /> },
       { path: "login", element: <RequestLoginForm /> },
+      { path: "translations", element: <AllTranslations /> },
+
       {
         element: <RequireAuth />,
         children: [

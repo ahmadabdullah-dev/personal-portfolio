@@ -4,6 +4,7 @@ import SoftwareSection from "../../features/marketing/SoftwareSection";
 import LocalizationSection from "../../features/marketing/LocalizationSection";
 import AllSkills from "../../features/skills/AllSkills";
 import AllBlogsBanner from "../../features/blogs/AllBlogsBanner";
+import AllTranslationsBanner from "../../features/translation/AllTranslationsBsnner";
 
 const LOGO_SRC = "/ahmad_abdullah_personal_brand_favicon-removebg-preview.png";
 
@@ -96,6 +97,7 @@ export default function LandingPage() {
       <LocalizationSection />
       <AllSkills/>
       <AllBlogsBanner/>
+      <AllTranslationsBanner/>
     </Container>
   );
 }
