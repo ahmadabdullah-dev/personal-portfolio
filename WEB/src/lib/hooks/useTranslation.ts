@@ -51,7 +51,20 @@ export function useGetTranslationById(id: string) {
     retry: false,
   });
 }
-
+export function useGetTranslationBySlug(slug: string) {
+  return useQuery({
+    queryKey: ["translation", slug],
+    queryFn: async () =>
+      agent
+        .get<TranslationDto>(
+          `/Translation/get-translation-by-slug/${encodeURIComponent(slug)}`,
+        )
+        .then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
+    enabled: !!slug,
+    retry: false,
+  });
+}
 export const useUpdateTranslation = () => {
   const queryClient = useQueryClient();
 
