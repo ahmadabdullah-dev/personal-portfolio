@@ -5,6 +5,7 @@ import LogoutButton from "../auth/Logout";
 import AddSkill from "../skills/AddSkills";
 import DeleteSkill from "../skills/DeleteSkill";
 import AddBlogForm from "../blogs/AddBlogForm";
+import AddTranslationForm from "../translation/AddTranslation";
 
 export default function AdminDashboard() {
   return (
@@ -31,6 +32,7 @@ export default function AdminDashboard() {
       <AddSkill/>
       <DeleteSkill/>
       <AddBlogForm/>
+      <AddTranslationForm/>
     </Box>
   );
 }
