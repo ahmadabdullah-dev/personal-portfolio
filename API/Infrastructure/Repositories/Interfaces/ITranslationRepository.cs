@@ -2,4 +2,6 @@
 
 public interface ITranslationRepository : IBaseRepository<Translation>
 {
+    Task<Translation> GetBySlugAsync(string slug, CancellationToken ct);
+
 }

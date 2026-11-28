@@ -7,6 +7,7 @@ public interface ITranslationService
     Task<Result<string>> DeleteTranslationAsync(string id, CancellationToken ct);
     Task<Result<TranslationDto>> GetTranslationByIdAsync(string id, CancellationToken ct);
     Task<Result<string>> UpdateTranslationAsync(UpdateTranslationDto dto, CancellationToken ct);
+    Task<Result<TranslationDto>> GetTranslationBySlugAsync(string slug, CancellationToken ct);
 
 
 }

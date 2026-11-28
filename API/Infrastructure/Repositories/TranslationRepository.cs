@@ -14,4 +14,8 @@ public class TranslationRepository : BaseRepository<Translation>, ITranslationRe
 
         return await PagedList<Translation>.CreateAsync(query, paginationParams.Page, paginationParams.PageSize, ct);
     }
+    public async Task<Translation> GetBySlugAsync(string slug, CancellationToken ct)
+    {
+        return await DbSet.SingleAsync(t => t.Slug == slug, ct);
+    }
 }

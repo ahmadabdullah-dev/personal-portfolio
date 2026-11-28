@@ -43,4 +43,10 @@ public class TranslationController : BaseApiController
         var result = await _translationService.UpdateTranslationAsync(dto, ct);
         return HandleResult(result);
     }
+    [HttpGet("get-translation-by-slug/{slug}")]
+    public async Task<IActionResult> GetTranslationBySlug(string slug, CancellationToken ct)
+    {
+        var result = await _translationService.GetTranslationBySlugAsync(slug, ct);
+        return HandleResult(result);
+    }
 }
